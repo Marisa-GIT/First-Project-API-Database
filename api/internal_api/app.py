@@ -4,6 +4,10 @@ import logging
 
 app = Flask(__name__)
 
+@app.route("/")
+def home():
+    return jsonify({"message": "API funcionando"})
+
 logging.basicConfig(
     filename="logs/api_errors.log",
     level=logging.ERROR,
