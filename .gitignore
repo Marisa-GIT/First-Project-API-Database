@@ -8,6 +8,7 @@ env/
 __pycache__/
 *.py[cod]
 *$py.class
+.pytest_cache/
 
 # Variables de entorno y secretos (¡Nunca los subas!)
 .env
@@ -23,3 +24,7 @@ database/*.sqlite
 .idea/
 .vscode/
 *.swp
+
+# Pruebas y archivos de cobertura (Opcional)
+.coverage
+htmlcov/
