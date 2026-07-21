@@ -21,7 +21,7 @@ def test_main_success(
     mock_connect_db,
 ):
 
-    # Usuario simulado
+    # Simulated user
     mock_fetch_users.return_value = [
         {
             "id": 1,
@@ -31,33 +31,33 @@ def test_main_success(
         }
     ]
 
-    # Resultados simulados de la API
+    # Simulated API results
     mock_test_get_users.return_value = [
         ("status_code", "PASS", "Status 200 OK"),
-        ("response_time", "PASS", "Menor a 1s"),
-        ("json_format", "PASS", "Formato correcto"),
+        ("response_time", "PASS", "Less than 1s"),
+        ("json_format", "PASS", "Correct format"),
     ]
 
-    # Resultado simulado del validador
+    # Simulated validator result
     mock_validate_user.return_value = (
         True,
         [
-            ("email_format", "PASS", "Email válido"),
-            ("username_length", "PASS", "Longitud válida"),
+            ("email_format", "PASS", "Valid email"),
+            ("username_length", "PASS", "Valid length"),
         ],
     )
 
-    # Mock de la base de datos
+    # Mock of the database
     mock_cursor = MagicMock()
     mock_conn = MagicMock()
 
     mock_conn.cursor.return_value = mock_cursor
     mock_connect_db.return_value = mock_conn
 
-    # Ejecutar
+    # Execute
     main()
 
-    # Verificaciones
+    # Verifications
     mock_fetch_users.assert_called_once()
     mock_test_get_users.assert_called_once()
     mock_validate_user.assert_called_once()

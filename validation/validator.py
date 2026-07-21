@@ -1,32 +1,32 @@
-# Reglas:
-# - El email debe contener "@"
-# - El username debe tener al menos 5 caracteres
+# Rules:
+# - The email must contain "@"
+# - The username must be at least 5 characters long
 
 def validate_user(user):
 
     results = []
 
-    # Validación de email
+    # Email validation
     email_valid = "@" in user["email"]
 
     if email_valid:
-        results.append(("email_format", "PASS", "Email válido"))
+        results.append(("email_format", "PASS", "Valid email"))
     else:
-        results.append(("email_format", "FAIL", "Email inválido"))
+        results.append(("email_format", "FAIL", "Invalid email"))
 
-    # Validación de username
+    # Username validation
     username_valid = len(user["username"]) >= 5
 
     if username_valid:
-        results.append(("username_length", "PASS", "Longitud válida"))
+        results.append(("username_length", "PASS", "Valid length"))
     else:
         results.append((
     "username_length",
     "FAIL",
-    f"Username '{user['username']}' tiene {len(user['username'])} caracteres. Se requieren mínimo 5."
+    f"Username '{user['username']}' has {len(user['username'])} characters. A minimum of 5 is required."
     ))
 
-    # El usuario es válido solo si todas las reglas se cumplen
+    # The user is valid only if all the rules are met
     is_valid = email_valid and username_valid
 
     return is_valid, results

@@ -1,30 +1,24 @@
-# Entornos virtuales (Muy importante para no subir gigas de librerías)
 .venv/
 venv/
 ENV/
 env/
 
-# Archivos de caché de Python
 __pycache__/
 *.py[cod]
 *$py.class
 .pytest_cache/
 
-# Variables de entorno y secretos (¡Nunca los subas!)
 .env
 .flaskenv
 
-# Logs y bases de datos temporales
 logs/
 *.log
 database/*.db
 database/*.sqlite
 
-# Archivos de configuración de IDE (Opcional, pero recomendado)
 .idea/
 .vscode/
 *.swp
 
-# Pruebas y archivos de cobertura (Opcional)
 .coverage
 htmlcov/

@@ -17,7 +17,7 @@ def insert_users():
 
     for user in users:
 
-        is_valid, validation_results = validate_user(user)
+        is_valid, _ = validate_user(user)
 
         values = (
             user["id"],
@@ -34,5 +34,4 @@ def insert_users():
     cursor.close()
     conn.close()
 
-    print("Usuarios insertados correctamente")
-
+    print("Users inserted correctly")

@@ -5,12 +5,12 @@ from validation.validator import validate_user
 
 
 def run_api_tests(records):
-    """Ejecuta las pruebas de la API y agrega los resultados."""
+    """Runs the API tests and adds the results."""
 
     pass_count = 0
     fail_count = 0
 
-    print("\n🌐 TESTS DE API")
+    print("\n🌐 API TESTS")
 
     api_results = test_get_users()
 
@@ -29,20 +29,20 @@ def run_api_tests(records):
 
 
 def validate_users(users, records):
-    """Valida los usuarios obtenidos desde la API."""
+    """Validates the users obtained from the API."""
 
     pass_count = 0
     fail_count = 0
     failed_tests = []
 
-    print("\n👤 VALIDACIÓN DE USUARIOS")
+    print("\n👤 USER VALIDATION")
 
     for user in users:
 
         user_id = user.get("id")
 
         if not user_id:
-            print("⚠️ Usuario sin ID:", user)
+            print("⚠️ User without ID:", user)
             continue
 
         _, test_results = validate_user(user)
@@ -61,44 +61,44 @@ def validate_users(users, records):
 
 
 def save_results(cursor, conn, query, records):
-    """Guarda los resultados en la base de datos."""
+    """Saves the results in the database."""
 
     if not records:
-        print("⚠️ No hay resultados para guardar.")
+        print("⚠️ There are no results to save.")
         return
 
     cursor.executemany(query, records)
     conn.commit()
 
-    print(f"\n💾 {len(records)} resultados almacenados en la base de datos.")
+    print(f"\n💾 {len(records)} results stored in the database.")
 
 
 def print_report(pass_count, fail_count, failed_tests):
-    """Imprime el reporte final."""
+    """Prints the final report."""
 
     total = pass_count + fail_count
 
-    print("\n📊 REPORTE DE PRUEBAS")
+    print("\n📊 TEST REPORT")
     print(f"Total: {total}")
     print(f"PASS : {pass_count}")
     print(f"FAIL : {fail_count}")
 
     if total > 0:
         success_rate = (pass_count / total) * 100
-        print(f"📈 Éxito: {success_rate:.2f}%")
+        print(f"📈 Success: {success_rate:.2f}%")
 
     if failed_tests:
 
-        print("\n❌ PRUEBAS FALLIDAS")
+        print("\n❌ FAILED TESTS")
 
         for user_id, test_name, message in failed_tests:
 
-            print(f"Usuario : {user_id}")
+            print(f"User : {user_id}")
             print(f"Test    : {test_name}")
-            print(f"Motivo  : {message}")
+            print(f"Reason  : {message}")
             print("-" * 35)
 
-    print("\n✅ Proceso finalizado correctamente")
+    print("\n✅ Process completed successfully")
 
 
 def main():
@@ -106,14 +106,14 @@ def main():
     users = fetch_users()
 
     if not users:
-        print("⚠️ No se obtuvieron usuarios desde la API")
+        print("⚠️ No users were obtained from the API")
         return
 
     try:
         conn = connect_db()
         cursor = conn.cursor()
     except Exception as e:
-        print(f"❌ Error conectando a la DB: {e}")
+        print(f"❌ Error connecting to the DB: {e}")
         return
 
     query = """
@@ -126,28 +126,28 @@ def main():
     pass_count = 0
     fail_count = 0
 
-    # Tests de API
+    # API Tests
     api_pass, api_fail = run_api_tests(records)
 
     pass_count += api_pass
     fail_count += api_fail
 
-    # Validación de usuarios
+    # User validation
     user_pass, user_fail, failed_tests = validate_users(users, records)
 
     pass_count += user_pass
     fail_count += user_fail
 
-    # Guardar resultados
+    # Save results
     try:
         save_results(cursor, conn, query, records)
     except Exception as e:
-        print(f"❌ Error insertando datos: {e}")
+        print(f"❌ Error inserting data: {e}")
     finally:
         cursor.close()
         conn.close()
 
-    # Reporte final
+    # Final report
     print_report(pass_count, fail_count, failed_tests)
 
 
