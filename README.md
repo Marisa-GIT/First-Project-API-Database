@@ -1,270 +1,344 @@
-# API Data Validator & Testing Framework
+# 🚀 API Data Validator & Testing Framework
 
-Proyecto desarrollado como práctica de **QA Engineering + Backend**, que integra:
+A Python-based QA Automation project that combines **API Testing, Data Validation, Database Integration, and Backend Development**.
 
-* Consumo de APIs externas
-* Validación de datos
-* Persistencia en base de datos
-* Desarrollo de API propia
-* Testing con Postman y Python
-
-Para cada usuario:
-* Obtiene email y username
-* Verifica que el email tenga "@"
-* Verifica que el username tenga al menos 5 caracteres
-* Marca el registro como válido o inválido
-* Guarda el resultado en la base de datos
+This project simulates a real-world QA workflow by consuming data from an external REST API, validating business rules, storing test results in a MySQL database, exposing an internal Flask API, and executing automated tests with **Pytest** and **Postman**.
 
 ---
 
-## 📌 Tecnologías utilizadas
+## 📌 Features
 
-* Python 🐍
-* Flask (API REST)
-* MySQL (Base de datos)
-* Postman (Testing de API)
-* Requests (consumo de API)
-* Logging (manejo de errores)
-
----
-
-## 🎯 Objetivo del proyecto
-
-Simular un flujo real de testing donde:
-
-1. Se consumen datos desde una API externa
-2. Se validan reglas de negocio
-3. Se almacenan resultados en base de datos
-4. Se expone una API propia para gestión de usuarios
-5. Se prueban endpoints con Postman
+- 🌐 Consume data from an external REST API
+- ✅ Validate business rules
+- 🗄️ Store users and test results in MySQL
+- 🔗 Expose REST endpoints with Flask
+- 🧪 Automated API testing with Pytest
+- 📮 Manual API testing with Postman
+- 📝 Logging and error handling
+- 📊 Generate execution reports
 
 ---
 
-## 🧩 Estructura del proyecto
+## 🛠️ Tech Stack
 
-```
+- Python
+- Flask
+- MySQL
+- Requests
+- Pytest
+- Postman
+- Logging
+- Git & GitHub
+
+---
+
+## 🎯 Project Workflow
+
+The application performs the following steps:
+
+1. Retrieves users from an external REST API.
+2. Validates business rules for each user.
+3. Stores user information in the database.
+4. Stores validation results in a separate table.
+5. Exposes an internal REST API to manage users.
+6. Executes automated and manual API tests.
+
+### Business Rules
+
+Each user is validated according to the following rules:
+
+- Email must contain **"@"**
+- Username must contain **at least 5 characters**
+
+Each validation is stored as **PASS** or **FAIL**.
+
+---
+
+# 📂 Project Structure
+
+```text
 API-Data-Validator/
 
-├───api
-│   │   __init__.py
+├── api/
+│   ├── external_api_testing/
+│   │   └── get_users.py
 │   │
-│   ├───external_api_testing
-│   │       get_users.py
+│   ├── internal_api/
+│   │   ├── __init__.py
+│   │   └── app.py
 │   │
-│   ├───internal_api
-│   └──     app.py
-│   
+│   ├── api_tests.py
+│   └── __init__.py
 │
-├───database
-│   │───db_connection.py
-│   │───insert_users.py
-│   │───schema.sql
-│   └──  __init__.py
+├── database/
+│   ├── db_connection.py
+│   ├── insert_users.py
+│   ├── schema.sql
+│   └── __init__.py
+│
+├── validation/
+│   ├── validator.py
+│   └── __init__.py
+│
+├── tests/
+│   ├── test_health.py
+│   ├── test_main.py
+│   ├── test_validation.py
+│   └── __init__.py
+│
+├── postman/
+│   ├── API Flask.postman_collection.json
+│   └── API-jsonplaceholder.postman_collection.json
+│
+├── screenshots/
 │
 ├── logs/
 │   └── api_errors.log
 │
-├───postman
-│     │
-│     │─── postman/API Flask.postman_collection.json
-│     └── postman/API-jsonplaceholder.postman_collection.json
-│        
-│───screenshots/
-│    │─── console.png
-│    │─── databaseTest.png
-│    │─── databaseUsers.png
-│    │─── postmanGet.png
-│    │─── postmanPost.png
-│    └──  postmanTest.png
-│
-│
-└───validation
-│   │───  validator.py  
-│   └── __init__.py
-│
-│── .python-version
+├── conftest.py
+├── pytest.ini
 ├── main.py
-├── README.md
-└── requirements.txt
+├── requirements.txt
+└── README.md
 ```
 
-## 🔧 Instalación
+---
 
-1. Clonar el repositorio:
+# ⚙️ Installation
 
-```
-https://github.com/Marisa-GIT/API-Data-Validator.git
+Clone the repository:
+
+```bash
+git https://github.com/Marisa-GIT/First-Project-API-Database.git
+
 cd API-Data-Validator
 ```
 
-2. Crear entorno virtual:
+Create a virtual environment:
 
-```
+```bash
 python -m venv .venv
-source .venv/Scripts/activate   # Windows
 ```
 
-3. Instalar dependencias:
+Activate the environment:
 
+**Windows**
+
+```bash
+.venv\Scripts\activate
 ```
+
+**Linux / macOS**
+
+```bash
+source .venv/bin/activate
+```
+
+Install dependencies:
+
+```bash
 pip install -r requirements.txt
 ```
 
 ---
 
-## 🗄️ Configuración de base de datos
+# 🗄️ Database Setup
 
-Información alojada en:
+Run the SQL script located in:
 
-```
+```text
 database/schema.sql
 ```
 
-## ▶️ Ejecución del proyecto
+This script creates all required tables.
 
-### 1. Insertar datos iniciales
+---
 
-```
+# ▶️ Running the Project
+
+## 1. Insert Users
+
+```bash
 python database/insert_users.py
 ```
 
 ---
 
-### 2. Ejecutar validaciones
+## 2. Execute the Validation Workflow
 
-```
+```bash
 python main.py
 ```
 
-Esto:
+The application will:
 
-* valida datos de usuarios
-* guarda resultados en MySQL
-* muestra reporte en consola
+- Retrieve users from the external API
+- Validate business rules
+- Execute API tests
+- Store results in MySQL
+- Display a summary report
+
+Example:
+
+```text
+🌐 API TESTS
+
+status_code      PASS
+response_time    PASS
+json_format      PASS
+
+📊 TEST REPORT
+
+Total: 23
+PASS : 22
+FAIL : 1
+Success Rate: 95.65%
+```
 
 ---
 
-### 3. Ejecutar API Flask
+## 3. Run the Flask API
 
-```
+```bash
 python -m api.internal_api.app
 ```
 
-API disponible en:
+The API will be available at:
 
-```
+```text
 http://127.0.0.1:5000
 ```
 
 ---
 
-## 🔗 Endpoints disponibles
+# 🔗 API Endpoints
 
-### 📥 GET /users
+| Method | Endpoint | Description |
+|----------|----------------|---------------------------|
+| GET | /users | Retrieve all users |
+| POST | /users | Create a new user |
+| PUT | /users/{id} | Update an existing user |
+| DELETE | /users/{id} | Delete a user |
+| GET | /health | Health check endpoint |
 
-Obtiene todos los usuarios
-
-### ➕ POST /users
-
-Crea un nuevo usuario
-
-Ejemplo:
+Example request:
 
 ```json
 {
-  "name": "Isabel",
-  "email": "isabel@test.com",
-  "username": "isabelqa"
+    "name": "Isabel",
+    "email": "isabel@test.com",
+    "username": "isabelqa"
 }
 ```
 
 ---
 
-### ✏️ PUT /users/{id}
+# 🧪 Testing
 
-Actualiza un usuario
+## Pytest
 
-### ❌ DELETE /users/{id}
+Run all automated tests:
 
-Elimina un usuario
+```bash
+python -m pytest -v
+```
+
+Example output:
+
+```text
+=========================
+4 passed in 2.48s
+=========================
+```
+
+Current automated tests include:
+
+- Health endpoint
+- Main workflow
+- User validation
+- API endpoints
 
 ---
 
-## 🧪 Testing con Postman
+## Postman
 
-Se validan:
+The project includes two Postman collections:
 
-* ✅ Status code (200, 201, 400, 404, 409, 500)
-* ⚡ Tiempo de respuesta (< 500ms)
-* 📦 Estructura JSON
-* 🔍 Validación de campos
+- External API Testing
+- Internal Flask API Testing
 
----
+Validated scenarios:
 
-## 📊 Ejemplo de reporte
-
-```
-📊 REPORTE DE PRUEBAS
-----------------------
-PASS: 18
-FAIL: 2
-```
+- ✅ Status Codes
+- ✅ Response Time
+- ✅ JSON Schema
+- ✅ CRUD Operations
+- ✅ Field Validation
 
 ---
 
-## 📝 Logs
+# 📸 Screenshots
 
-Los errores se almacenan en:
+## Postman
 
-```
-logs/api_errors.log
-```
+![Postman GET](screenshots/postmanGet.png)
 
-Ejemplo:
-
-```
-ERROR Error creando usuario: Duplicate entry
-```
+![Postman Tests](screenshots/postmanTest.png)
 
 ---
 
-## 📸 Screenshots
+## Console Report
 
-### 🔹 Postman Testing
-![Postman](screenshots/postmanGet.png)
-![Postman](screenshots/postmanTest.png)
-
-### 🔹 Reporte en Consola
 ![Console](screenshots/console.png)
 
-### 🔹 Base de Datos MySQL
-![Database](screenshots/databaseUsers.png)
-![Database](screenshots/databaseTest.png)
+---
 
-----
+## MySQL Database
 
-## 💡 Aprendizajes clave
+### Users Table
 
-* Consumo de APIs REST
-* Validación de datos (QA)
-* Manejo de errores y logs
-* Integración backend + base de datos
-* Testing manual y automatización
+![Users](screenshots/databaseUsers.png)
+
+### Test Results Table
+
+![Test Results](screenshots/databaseTest.png)
 
 ---
 
-## 🚀 Mejoras futuras
+# 📈 Key Learning Outcomes
 
-* Autenticación (login)
-* Pruebas automatizadas con pytest
-* Dockerización
-* Documentación con Swagger
+Through this project I practiced:
+
+- REST API Testing
+- Backend Development with Flask
+- Business Rule Validation
+- Database Integration with MySQL
+- Automated Testing with Pytest
+- Manual API Testing with Postman
+- Error Handling and Logging
+- Project Architecture and Modular Design
 
 ---
 
-## 👩‍💻 Autor
+# 🚀 Future Improvements
 
-Proyecto desarrollado por Isabel Vides como parte de su formación en QA Engineer 🚀
+- JWT Authentication
+- Docker Support
+- GitHub Actions CI/CD
+- Swagger/OpenAPI Documentation
+- Test Coverage Reports
+- Performance Testing
+- Environment Variables (.env)
+
+---
+
+# 👩‍💻 Author
+
+**Isabel Vides**
+
+Junior QA Automation Engineer
+
+This project was developed as part of my QA Automation portfolio to demonstrate API testing, backend development, database integration, and automated testing skills.
 
 
 

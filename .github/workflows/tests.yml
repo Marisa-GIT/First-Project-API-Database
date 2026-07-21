@@ -1,36 +1,35 @@
 name: Python API Tests
 
-# 1. ¿Cuándo se va a ejecutar este flujo?
+# 1. When is this flow going to be executed?
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
-# 2. ¿Qué va a hacer?
+# 2. What are you going to do?
 jobs:
   run-tests:
-    runs-on: ubuntu-latest # Ejecuta en una máquina virtual Linux ligera
-
+    runs-on: ubuntu-latest # Runs on a lightweight Linux virtual machine
     steps:
-    # Paso 1: Descargar el código del repositorio en la máquina virtual
+    # Step 1: Download the code from the repository to the virtual machine
     - name: Checkout code
       uses: actions/checkout@v4
 
-    # Paso 2: Instalar Python en la máquina virtual
+    # Step 2: Install Python on the virtual machine
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version: '3.11' # La versión que estás usando
+        python-version: '3.11' # The version you are using
 
-    # Paso 3: Instalar las dependencias de tu proyecto
+    # Step 3: Install your project's dependencies
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install pytest pytest-cov
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-    # Paso 4: Ejecutar los tests con reporte de cobertura
+    # Step 4: Run the tests with coverage report
     - name: Run Tests with Pytest
       run: |
         python -m pytest --cov=api --cov=validation --cov-report=term-missing

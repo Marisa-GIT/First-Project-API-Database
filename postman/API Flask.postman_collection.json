@@ -40,7 +40,7 @@
               "    pm.response.to.have.status(200);\r",
               "});\r",
               "\r",
-              "pm.test(\"Respuesta contiene mensaje\", function () {\r",
+              "pm.test(\"Response contains message\", function () {\r",
               "    let jsonData = pm.response.json();\r",
               "    pm.expect(jsonData).to.have.property(\"message\");\r",
               "});"

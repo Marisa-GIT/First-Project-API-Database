@@ -8,5 +8,5 @@ def fetch_users():
     if response.status_code == 200:
         return response.json()
     else:
-        print("Error al consumir la Api")
+        print("An error occurred while consuming the API")
         return []
