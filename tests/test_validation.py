@@ -1,5 +1,3 @@
-import sys
-import os
 from api.internal_api.app import app
 
 def test_validate_without_data():
