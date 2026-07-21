@@ -4,9 +4,9 @@ USE api_project
 
 CREATE TABLE users (
     id INT PRIMARY KEY,
-    name VARCHAR(100)
-    email VARCHAR(100)
-    username VARCHAR(50)
+    name VARCHAR(100),
+    email VARCHAR(100),
+    username VARCHAR(50),
     valid BOOLEAN
 );
 
