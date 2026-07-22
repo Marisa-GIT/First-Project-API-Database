@@ -111,7 +111,7 @@ Clone the repository:
 ```bash
 git https://github.com/Marisa-GIT/First-Project-API-Database.git
 
-cd API-Data-Validator
+cd First-Project-API-Database
 ```
 
 Create a virtual environment:
