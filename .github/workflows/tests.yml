@@ -3,9 +3,12 @@ name: Python API Tests
 # 1. When is this flow going to be executed?
 on:
   push:
-    branches: [ "main" ]
+    branches: 
+      - main
+      - feature/**
   pull_request:
-    branches: [ "main" ]
+    branches: 
+      - "main" 
 
 # 2. What are you going to do?
 jobs:
