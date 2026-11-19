@@ -1,5 +1,9 @@
 # 🚀 API Data Validator & Testing Framework
 
+[![CI](https://github.com/Marisa-GIT/First-Project-API-Database/actions/workflows/tests.yml/badge.svg)](
+https://github.com/Marisa-GIT/First-Project-API-Database/actions/workflows/tests.yml
+)
+
 A Python-based QA Automation project that combines **API Testing, Data Validation, Database Integration, and Backend Development**.
 
 This project simulates a real-world QA workflow by consuming data from an external REST API, validating business rules, storing test results in a MySQL database, exposing an internal Flask API, and executing automated tests with **Pytest** and **Postman**.
@@ -19,38 +23,34 @@ This project simulates a real-world QA workflow by consuming data from an extern
 
 ---
 
-## 🛠️ Tech Stack
+## 🎯 Project Objective
 
-- Python
-- Flask
-- MySQL
-- Requests
-- Pytest
-- Postman
-- Logging
-- Git & GitHub
+The goal of this project is to simulate a complete QA validation workflow:
+
+- Retrieve data from an external API
+- Apply business validation rules
+- Store validation results in a database
+- Expose an internal REST API
+- Perform automated and manual API testing
 
 ---
 
-## 🎯 Project Workflow
+### Validation Rules
 
-The application performs the following steps:
+For each user retrieved from the external API:
 
-1. Retrieves users from an external REST API.
-2. Validates business rules for each user.
-3. Stores user information in the database.
-4. Stores validation results in a separate table.
-5. Exposes an internal REST API to manage users.
-6. Executes automated and manual API tests.
+- Verify that the email contains @
+- Verify that the username contains at least 5 characters
+- Mark the user as valid or invalid
+- Store validation results in MySQL
+- Generate a testing report
 
-### Business Rules
+Example validation failure:
 
-Each user is validated according to the following rules:
-
-- Email must contain **"@"**
-- Username must contain **at least 5 characters**
-
-Each validation is stored as **PASS** or **FAIL**.
+```text
+username_length | FAIL |
+Username 'Bret' has 4 characters. Minimum required: 5.
+```
 
 ---
 
@@ -58,33 +58,37 @@ Each validation is stored as **PASS** or **FAIL**.
 
 ```text
 API-Data-Validator/
-
+│
 ├── api/
+│   ├── __init__.py
+│   ├── api_tests.py
+│   │
 │   ├── external_api_testing/
+│   │   ├── __init__.py
 │   │   └── get_users.py
 │   │
-│   ├── internal_api/
-│   │   ├── __init__.py
-│   │   └── app.py
-│   │
-│   ├── api_tests.py
-│   └── __init__.py
+│   └── internal_api/
+│       ├── __init__.py
+│       └── app.py
 │
 ├── database/
+│   ├── __init__.py
 │   ├── db_connection.py
 │   ├── insert_users.py
-│   ├── schema.sql
-│   └── __init__.py
+│   └── schema.sql
 │
 ├── validation/
-│   ├── validator.py
-│   └── __init__.py
+│   ├── __init__.py
+│   └── validator.py
 │
 ├── tests/
+│   ├── __init__.py
 │   ├── test_health.py
 │   ├── test_main.py
-│   ├── test_validation.py
-│   └── __init__.py
+│   └── test_validation.py
+│
+├── logs/
+│   └── api_errors.log
 │
 ├── postman/
 │   ├── API Flask.postman_collection.json
@@ -92,15 +96,25 @@ API-Data-Validator/
 │
 ├── screenshots/
 │
-├── logs/
-│   └── api_errors.log
-│
 ├── conftest.py
 ├── pytest.ini
-├── main.py
 ├── requirements.txt
-└── README.md
+├── README.md
+└── main.py
 ```
+---
+
+# 🛠 Technologies Used
+
+Technology  	Purpose
+Python	        Core development language
+Flask	        Internal REST API
+MySQL	        Database storage
+Requests	    External API consumption
+Pytest	        Automated testing
+Postman	        API testing
+Git & GitHub	Version control
+Logging	        Error tracking
 
 ---
 
@@ -154,6 +168,17 @@ This script creates all required tables.
 
 ---
 
+Verify that the required tables were created:
+
+SHOW TABLES;
+
+Expected:
+
+users
+test_results
+
+----
+
 # ▶️ Running the Project
 
 ## 1. Insert Users
@@ -161,6 +186,10 @@ This script creates all required tables.
 ```bash
 python database/insert_users.py
 ```
+---
+Expected output:
+
+Users inserted successfully
 
 ---
 
@@ -170,13 +199,13 @@ python database/insert_users.py
 python main.py
 ```
 
-The application will:
+This process:
 
-- Retrieve users from the external API
-- Validate business rules
-- Execute API tests
-- Store results in MySQL
-- Display a summary report
+- Retrieves users
+- Runs API tests
+- Validates business rules
+- Stores results in MySQL
+- Generates a summary report
 
 Example:
 
@@ -269,11 +298,23 @@ The project includes two Postman collections:
 
 Validated scenarios:
 
-- ✅ Status Codes
+- ✅ HTTP status codes
 - ✅ Response Time
-- ✅ JSON Schema
-- ✅ CRUD Operations
-- ✅ Field Validation
+- ✅ JSON structure
+- ✅ Data validation rules
+- ✅ Expected fields
+
+---
+
+# 📝 Logging
+
+Errors are stored in:
+
+logs/api_errors.log
+
+Example:
+
+ERROR: Duplicate entry detected
 
 ---
 
@@ -305,30 +346,45 @@ Validated scenarios:
 
 ---
 
+# 🧪 Testing Architecture
+
+The project demonstrates three testing layers:
+
+# Unit Tests
+- test_validation.py
+- test_main.py
+# Integration Tests
+- MySQL database connectivity
+- External API consumption
+# API / End-to-End Tests
+- Flask endpoints
+- Postman collections
+
+---
+
 # 📈 Key Learning Outcomes
 
 Through this project I practiced:
 
-- REST API Testing
-- Backend Development with Flask
-- Business Rule Validation
-- Database Integration with MySQL
-- Automated Testing with Pytest
-- Manual API Testing with Postman
-- Error Handling and Logging
-- Project Architecture and Modular Design
+- REST API consumption
+- Business rule validation
+- MySQL integration
+- Automated testing with Pytest
+- API testing with Postman
+- Flask API development
+- Error handling and logging
+- Modular Python architecture
+- GitHub workflow integration
 
 ---
 
 # 🚀 Future Improvements
 
 - JWT Authentication
-- Docker Support
-- GitHub Actions CI/CD
-- Swagger/OpenAPI Documentation
-- Test Coverage Reports
-- Performance Testing
-- Environment Variables (.env)
+- Docker support
+- Swagger/OpenAPI documentation
+- Additional validation rules
+- Increased test coverage
 
 ---
 
