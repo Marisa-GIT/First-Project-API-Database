@@ -1,7 +1,7 @@
 # 🚀 API Data Validator & Testing Framework
 
 [![CI](https://github.com/Marisa-GIT/First-Project-API-Database/actions/workflows/tests.yml/badge.svg)](
-https://github.com/Marisa-GIT/First-Project-API-Database/workflows/tests.yml
+https://github.com/Marisa-GIT/First-Project-API-Database/actions/workflows/tests.yml
 )
 
 A Python-based QA Automation project that combines **API Testing, Data Validation, Database Integration, and Backend Development**.
@@ -47,9 +47,10 @@ For each user retrieved from the external API:
 
 Example validation failure:
 
+```text
 username_length | FAIL |
 Username 'Bret' has 4 characters. Minimum required: 5.
-
+```
 
 ---
 
