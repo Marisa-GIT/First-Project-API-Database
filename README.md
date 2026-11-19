@@ -191,11 +191,6 @@ Expected output:
 Users inserted successfully
 
 ---
-Execute validations:
-
-python main.py
-
----
 
 ## 2. Execute the Validation Workflow
 
@@ -308,25 +303,7 @@ Validated scenarios:
 - ✅ Data validation rules
 - ✅ Expected fields
 
-# 📊 Sample Report
-
-🌐 API TESTS
-status_code      PASS
-response_time    PASS
-json_format      PASS
-
-📊 TEST REPORT
-
-Total: 23
-PASS: 22
-FAIL: 1
-Success Rate: 95.65%
-
-❌ FAILED TESTS
-
-User ID: 1
-Test: username_length
-Reason: Username 'Bret' has 4 characters. Minimum required: 5.
+---
 
 # 📝 Logging
 
@@ -372,13 +349,13 @@ ERROR: Duplicate entry detected
 
 The project demonstrates three testing layers:
 
-- Unit Tests
+# Unit Tests
 - test_validation.py
 - test_main.py
-- Integration Tests
+# Integration Tests
 - MySQL database connectivity
 - External API consumption
-- API / End-to-End Tests
+# API / End-to-End Tests
 - Flask endpoints
 - Postman collections
 
